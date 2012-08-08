@@ -4,8 +4,8 @@ class AppTest < MiniTest::Unit::TestCase
 
   def test_runner
     actual = `zeus runner "puts Widget.inspect"`.chomp
-    expected = "Widget(id: integer, created_at: datetime, updated_at: datetime)"
-    assert_equal actual, expected
+    expected = %r{Widget\(id: integer, created_at: datetime, updated_at: datetime\)}
+    assert expected =~ actual
   end
 
   def test_server

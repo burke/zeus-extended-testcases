@@ -12,4 +12,6 @@ task :default do
   i,o,t=Open3.popen2e("zeus start")
   system "ruby TEST_APP.rb"
   Process.kill("INT", t.pid)
+
+  `ps aux | grep zeus | awk '{print $2}' | xargs kill -9`
 end
