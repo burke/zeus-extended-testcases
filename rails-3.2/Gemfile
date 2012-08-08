@@ -22,7 +22,8 @@ end
 
 gem 'jquery-rails'
 
-group :development, :test do
+group :test do
+  gem 'test-unit', "> 2.0"
   gem 'rspec-rails'
 end
 

@@ -30,6 +30,12 @@ class AppTest < MiniTest::Unit::TestCase
     assert expected =~ actual
   end
 
+  def test_rspec
+    actual = `zeus rspec spec/simple_spec.rb`.chomp
+    expected = /1 example, 0 failures/
+    assert expected =~ actual
+  end
+
   def test_testrb
     actual = `zeus testrb test/simple_test.rb`.chomp
     expected = /1 tests, 1 assertions, 0 failures, 0 errors/
