@@ -93,6 +93,6 @@ PLATFORMS
 
 DEPENDENCIES
   rails (= 3.0.16)
-  rspec-rails
+  rspec-rails (~> 2.0)
   sqlite3
   test-unit (= 1.2.3)
