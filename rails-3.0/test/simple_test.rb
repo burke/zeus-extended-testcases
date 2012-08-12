@@ -6,4 +6,8 @@ class SimpleTest < ActiveSupport::TestCase
     assert Widget.ancestors.include?(ActiveRecord::Base)
   end
 
+  def test_widget2
+    assert Widget.ancestors.include?(ActiveRecord::Base)
+  end
+
 end
