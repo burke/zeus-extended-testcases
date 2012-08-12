@@ -1,7 +1,8 @@
 # go to a rails folder and ruby ../TEST_APP.rb
+require 'minitest/spec'
 require 'minitest/autorun'
 
-class AppTest < MiniTest::Unit::TestCase
+describe "app" do
   def zeus
     ENV['RUN_ZEUS'] || 'zeus'
   end
@@ -40,8 +41,20 @@ class AppTest < MiniTest::Unit::TestCase
     assert_match expected, actual
   end
 
-  def test_testrb
+  it "should runs via testrb" do
     actual = `#{zeus} testrb test/simple_test.rb`.chomp
+    expected = /2 tests, 2 assertions, 0 failures, 0 errors/
+    assert_match expected, actual
+  end
+
+  it "should runs via testrb and -n" do
+    actual = `#{zeus} testrb test/simple_test.rb -n '/2/'`.chomp
+    expected = /1 tests, 1 assertions, 0 failures, 0 errors/
+    assert_match expected, actual
+  end
+
+  it "should runs via testrb and line number" do
+    actual = `#{zeus} testrb test/simple_test.rb:10`.chomp
     expected = /1 tests, 1 assertions, 0 failures, 0 errors/
     assert_match expected, actual
   end
