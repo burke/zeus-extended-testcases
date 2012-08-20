@@ -1,6 +1,7 @@
 # go to a rails folder and ruby ../TEST_APP.rb
 require 'minitest/spec'
 require 'minitest/autorun'
+gem 'testrbl' # install this or line-number test will fail
 
 describe "app" do
   def zeus
@@ -41,21 +42,33 @@ describe "app" do
     assert_match expected, actual
   end
 
-  it "should runs via testrb" do
-    actual = `#{zeus} testrb test/simple_test.rb`.chomp
-    expected = /2 tests, 2 assertions, 0 failures, 0 errors/
-    assert_match expected, actual
-  end
+  describe "testrb" do
+    it "should runs via testrb" do
+      actual = `#{zeus} testrb test/simple_test.rb`.chomp
+      expected = /2 tests, 2 assertions, 0 failures, 0 errors/
+      assert_match expected, actual
+      assert $?.success?
+    end
 
-  it "should runs via testrb and -n" do
-    actual = `#{zeus} testrb test/simple_test.rb -n '/2/'`.chomp
-    expected = /1 tests, 1 assertions, 0 failures, 0 errors/
-    assert_match expected, actual
-  end
+    it "should runs via testrb and -n" do
+      actual = `#{zeus} testrb test/simple_test.rb -n '/2/'`.chomp
+      expected = /1 tests, 1 assertions, 0 failures, 0 errors/
+      assert_match expected, actual
+      assert $?.success?
+    end
 
-  it "should runs via testrb and line number" do
-    actual = `#{zeus} testrb test/simple_test.rb:10`.chomp
-    expected = /1 tests, 1 assertions, 0 failures, 0 errors/
-    assert_match expected, actual
+    it "should runs via testrb and line number" do
+      actual = `#{zeus} testrb test/simple_test.rb:10`.chomp
+      expected = /1 tests, 1 assertions, 0 failures, 0 errors/
+      assert_match expected, actual
+      assert $?.success?
+    end
+
+    it "should exit with error state when tests fail" do
+      actual = `#{zeus} testrb test/fail.rb`.chomp
+      expected = /1 error/
+      assert_match expected, actual
+      assert !$?.success?
+    end
   end
 end
